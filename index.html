@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeekEnds - Ticket Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Auth Container -->
+    <div id="auth-container" class="container">
+        <div class="auth-box">
+            <h1>WeekEnds</h1>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            
+            <div id="login" class="tab-content active">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <!-- <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="login-admin"> Login as Admin
+                    </label>
+                </div> -->
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="login-admin"> Login as Admin
+                    </label>
+                </div>
+                <button id="login-btn" class="btn">Login</button>
+            </div>
+            
+            <div id="register" class="tab-content">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Enter your password">
+                </div>
+                <button id="register-btn" class="btn">Register</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="user-dashboard" class="container hidden">
+        <header class="header">
+            <div class="header-left">
+                <h1>WeekEnds</h1>
+                <div class="genre-filter">
+                    <select id="genre-select">
+                        <option value="all">All Genres</option>
+                        <option value="action">Action</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="drama">Drama</option>
+                        <option value="horror">Horror</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search movies...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <button id="cart-btn" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </button>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="movies-grid" class="movies-grid">
+                <!-- Movies will be loaded here -->
+            </div>
+        </main>
+
+        <!-- Cart Modal -->
+        <div id="cart-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Your Cart</h2>
+                <div id="cart-items">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="cart-total">
+                    <h3>Total: $<span id="cart-total">0</span></h3>
+                    <button id="checkout-btn" class="btn">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="container hidden">
+        <header class="header">
+            <div class="header-left">
+                <h1>WeekEnds Admin</h1>
+            </div>
+            <div class="header-right">
+                <button id="admin-logout-btn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <div class="admin-tabs">
+            <button class="admin-tab-btn active" data-tab="movies">Movies</button>
+            <button class="admin-tab-btn" data-tab="users">Users</button>
+        </div>
+
+        <div id="movies" class="admin-tab-content active">
+            <div class="admin-actions">
+                <button id="add-movie-btn" class="btn">Add New Movie</button>
+            </div>
+            <div id="admin-movies-grid" class="movies-grid">
+                <!-- Admin movies will be loaded here -->
+            </div>
+        </div>
+
+        <div id="users" class="admin-tab-content">
+            <div class="admin-actions">
+                <button id="add-user-btn" class="btn">Add New User</button>
+            </div>
+            <div id="users-list" class="users-list">
+                <!-- Users will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Movie Modal -->
+        <div id="movie-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="movie-modal-title">Add New Movie</h2>
+                <form id="movie-form">
+                    <input type="hidden" id="movie-id">
+                    <div class="form-group">
+                        <label for="movie-title">Movie Title</label>
+                        <input type="text" id="movie-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-poster">Poster URL</label>
+                        <input type="url" id="movie-poster" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-genre">Genre</label>
+                        <select id="movie-genre" required>
+                            <option value="action">Action</option>
+                            <option value="comedy">Comedy</option>
+                            <option value="drama">Drama</option>
+                            <option value="horror">Horror</option>
+                            <option value="sci-fi">Sci-Fi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-year">Release Year</label>
+                        <input type="number" id="movie-year" min="1900" max="2099" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-price">Ticket Price ($)</label>
+                        <input type="number" id="movie-price" min="1" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="movie-description">Description</label>
+                        <textarea id="movie-description" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- User Modal -->
+        <div id="user-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="user-modal-title">Add New User</h2>
+                <form id="user-form">
+                    <input type="hidden" id="user-id">
+                    <div class="form-group">
+                        <label for="user-name">Full Name</label>
+                        <input type="text" id="user-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" id="user-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Password</label>
+                        <input type="password" id="user-password">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="user-is-admin">
+                            <input type="checkbox" id="user-is-admin"> Is Admin
+                        </label>
+                    </div> -->
+                    <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="login-admin"> Login as Admin
+                    </label>
+                </div>
+                    <button type="submit" class="btn">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
