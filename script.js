@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!localStorage.getItem('users')) {
         const defaultUsers = [
             { id: 1, name: 'Admin', email: 'admin@weekends.com', password: 'admin123', isAdmin: true },
-            { id: 2, name: 'John Doe', email: 'user@weekends.com', password: 'user123', isAdmin: false }
+            { id: 2, name: 'APJ Abdul Kalam', email: 'apj@weekends.com', password: 'apj', isAdmin: false }
         ];
         localStorage.setItem('users', JSON.stringify(defaultUsers));
     }
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3 class="movie-title">${movie.title}</h3>
                     <span class="movie-genre">${movie.genre}</span>
                     <p class="movie-year">${movie.year}</p>
-                    <p class="movie-price">$${movie.price.toFixed(2)}</p>
+                    <p class="movie-price">Rs ${movie.price.toFixed(2)}</p>
                     <p class="movie-description">${movie.description}</p>
                     <button class="add-to-cart" data-id="${movie.id}">Add to Cart</button>
                 </div>
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3 class="movie-title">${movie.title}</h3>
                     <span class="movie-genre">${movie.genre}</span>
                     <p class="movie-year">${movie.year}</p>
-                    <p class="movie-price">$${movie.price.toFixed(2)}</p>
+                    <p class="movie-price">Rs ${movie.price.toFixed(2)}</p>
                     <p class="movie-description">${movie.description}</p>
                     <div class="admin-movie-actions">
                         <button class="btn btn-secondary edit-movie" data-id="${movie.id}">Edit</button>
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${item.poster}" alt="${item.title}" class="cart-item-poster" onerror="this.src='https://via.placeholder.com/60x90?text=No+Poster'">
                     <div>
                         <h4 class="cart-item-title">${item.title}</h4>
-                        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                        <p class="cart-item-price">Rs ${item.price.toFixed(2)}</p>
                     </div>
                 </div>
                 <div class="cart-item-controls">
@@ -594,7 +594,27 @@ document.addEventListener('DOMContentLoaded', function() {
         userIsAdmin.checked = false;
         userModal.classList.remove('hidden');
     });
-    
+
+// Get all close buttons
+const closeButtons = document.querySelectorAll('.close-modal');
+
+// Add event listeners to all close buttons
+closeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Find the closest modal parent and hide it
+        const modal = this.closest('.modal');
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+    });
+});
+
+// Keep your existing click-outside-to-close functionality
+window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+        e.target.classList.add('hidden');
+    }
+});
     // Edit User
     function editUser(id) {
         const users = JSON.parse(localStorage.getItem('users'));
@@ -695,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #4CAF50;
+            background-color:rgb(255, 145, 0);
             color: white;
             padding: 15px 25px;
             border-radius: 4px;
